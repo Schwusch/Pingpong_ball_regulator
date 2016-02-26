@@ -11,41 +11,35 @@
 void task_com(void *pvParameters)
 {	
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 50;
+	const portTickType xTimeIncrement = timer;
 	
 	xLastWakeTime = xTaskGetTickCount();
-
-	int timer = 10;
-	
-	static int flag1 = 0;
-	static uint8_t str[20] = {0};
-	static uint8_t *p_str = str;
+	static uint8_t str[5] = {0};
 	
 	while(1)
-	{		
-		//TODO: Lots of stuff
-		while (flag1==0)
-		{
-			while(!uart_receiver_ready());
-			*p_str = uart_receive_char();
-			if(*p_str != 10){
+	{	
+		/*	Set pin high for performance measurement	 */
+		ioport_set_pin_level(PIO_PB26_IDX,HIGH);
+		
+		if(xSemaphoreTake(sync, portMAX_DELAY)){
+			itoa(dac_value, str, 10);
+			
+			/*
+			for(int i = 0; i<5; i++){
+				while(!uart_transmitter_ready());
+				uart_send_char(*p_str);
 				p_str++;
-			} else {
-				flag1 = 1;
-				p_str = str;
 			}
+			*/
+			uart_send_string(str);			
+			uart_send_newline();
+			xSemaphoreGive(sync);
 		}
-		while(flag1==1){
-			while(!uart_transmitter_ready());
-			uart_send_char(*p_str);
-			if ((char)*p_str == 10)
-			{
-				flag1 = 0;
-				p_str = str;
-				} else {
-				p_str++;
-			}			
-		}
+		
+		/* Sleep for some time */
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
+		
+		/*	Set pin low for performance measurement	 */
+		ioport_set_pin_level(PIO_PB26_IDX,LOW);
 	}
 }

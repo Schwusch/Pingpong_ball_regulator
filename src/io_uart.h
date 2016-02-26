@@ -39,5 +39,14 @@ int uart_receiver_ready(void);
 void uart_send_char(uint8_t);
 /* Receive character */ 
 char uart_receive_char(void);
+/* Send string that is null-terminated */
+void uart_send_string(uint8_t *str);
+/* Send a newline */
+void uart_send_newline(void);
+/* Receive a string and store in buffer. 
+ * The sender must finish the string with a newline
+ * String length will not exceed max value.
+ * Stored string is null-terminated */
+void uart_receive_string(char *buffer, int max);
 
 #endif

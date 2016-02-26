@@ -75,3 +75,43 @@ char uart_receive_char(void)
 	char chr = UART_RHR;
 	return chr;
 }
+
+/*
+ * Send null-terminated string 
+ */
+void uart_send_string(uint8_t *str) 
+{
+	while(*str != NULL){
+		while(!uart_transmitter_ready());
+		uart_send_char(*str);
+		str++;
+	}
+}
+
+/*
+ * Send newline: ASCII value 10
+ */
+void uart_send_newline(void){
+	while(!uart_transmitter_ready());
+	uart_send_char(10);
+}
+/*
+ * Receive a string and store in buffer. 
+ * The sender must finish the string with a newline
+ * String length will not exceed max value.
+ * Stored string is null-terminated
+ */
+void uart_receive_string(char *buffer, int max){
+	int counter = 0;
+	while(*buffer != 10 && counter < max){
+		while(!uart_receiver_ready());
+		*buffer = uart_receive_char();
+		
+		if (*buffer != 10)
+		{
+			buffer++;
+		}
+		counter++;
+	}
+	*buffer = 0;
+}

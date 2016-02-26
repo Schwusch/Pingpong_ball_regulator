@@ -2,7 +2,7 @@
  * adc.c
  *
  * Created: 2016-02-19 14:06:32
- *  Author: Spellabbet
+ *  Author: Jonathan
  */ 
 
 #include <asf.h>

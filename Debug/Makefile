@@ -105,6 +105,8 @@ C_SRCS +=  \
 ../src/adc_func.c \
 ../src/ASF/common/utils/stdio/read.c \
 ../src/ASF/sam/drivers/usart/usart.c \
+../src/task_idle.c \
+../src/uart_recieve_values.c \
 ../src/ASF/common/utils/stdio/write.c \
 ../src/ASF/common/services/serial/usart_serial.c \
 ../src/ASF/common/services/delay/sam/cycle_counter.c \
@@ -150,6 +152,8 @@ OBJS +=  \
 src/adc_func.o \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/usart/usart.o \
+src/task_idle.o \
+src/uart_recieve_values.o \
 src/ASF/common/utils/stdio/write.o \
 src/ASF/common/services/serial/usart_serial.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
@@ -188,6 +192,8 @@ OBJS_AS_ARGS +=  \
 src/adc_func.o \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/usart/usart.o \
+src/task_idle.o \
+src/uart_recieve_values.o \
 src/ASF/common/utils/stdio/write.o \
 src/ASF/common/services/serial/usart_serial.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
@@ -226,6 +232,8 @@ C_DEPS +=  \
 src/adc_func.d \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/usart/usart.d \
+src/task_idle.d \
+src/uart_recieve_values.d \
 src/ASF/common/utils/stdio/write.d \
 src/ASF/common/services/serial/usart_serial.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
@@ -264,6 +272,8 @@ C_DEPS_AS_ARGS +=  \
 src/adc_func.d \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/usart/usart.d \
+src/task_idle.d \
+src/uart_recieve_values.d \
 src/ASF/common/utils/stdio/write.d \
 src/ASF/common/services/serial/usart_serial.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
@@ -313,6 +323,10 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

@@ -8,6 +8,10 @@ src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\usart\usart.c
 
+src\task_idle.c
+
+src\uart_recieve_values.c
+
 src\ASF\common\utils\stdio\write.c
 
 src\ASF\common\services\serial\usart_serial.c
