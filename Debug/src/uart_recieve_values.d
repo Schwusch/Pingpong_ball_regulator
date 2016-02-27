@@ -153,7 +153,7 @@ src/uart_recieve_values.d src/uart_recieve_values.o: \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/sync.h \
- ../src/uart_recieve_values.h ../src/io_uart.h
+ ../src/uart_recieve_values.h
 
 ../src/asf.h:
 
@@ -480,5 +480,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/sync.h:
 
 ../src/uart_recieve_values.h:
-
-../src/io_uart.h:

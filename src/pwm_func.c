@@ -6,7 +6,6 @@
  */ 
 #include <asf.h>
 #include "pwm_func.h"
-#include "io_uart.h"
 
 static pwm_channel_t pwm_instance;
 

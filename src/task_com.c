@@ -5,7 +5,6 @@
  *  Author: Dennis, Jonathan
  */ 
 #include <asf.h>
-#include "io_uart.h"
 #include "sync.h"
 
 void task_com(void *pvParameters)
@@ -23,23 +22,16 @@ void task_com(void *pvParameters)
 		
 		if(xSemaphoreTake(sync, portMAX_DELAY)){
 			itoa(dac_value, str, 10);
-			
-			/*
-			for(int i = 0; i<5; i++){
-				while(!uart_transmitter_ready());
-				uart_send_char(*p_str);
-				p_str++;
-			}
-			*/
-			uart_send_string(str);			
-			uart_send_newline();
+			printf(str);
+			printf("\n");
 			xSemaphoreGive(sync);
 		}
+		/*	Set pin low for performance measurement	 */
+		ioport_set_pin_level(PIO_PB26_IDX,LOW);
 		
 		/* Sleep for some time */
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
 		
-		/*	Set pin low for performance measurement	 */
-		ioport_set_pin_level(PIO_PB26_IDX,LOW);
+		
 	}
 }

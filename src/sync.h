@@ -2,7 +2,7 @@
  * sync.h
  *
  * Created: 2016-02-19 14:46:06
- *  Author: Spellabbet
+ *  Author: Jonathan
  */ 
 
 

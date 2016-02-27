@@ -8,6 +8,8 @@ src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\usart\usart.c
 
+src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
+
 src\task_idle.c
 
 src\uart_recieve_values.c
@@ -25,8 +27,6 @@ src\ASF\sam\drivers\dacc\dacc.c
 src\ASF\sam\drivers\tc\tc.c
 
 src\ASF\sam\drivers\pwm\pwm.c
-
-src\io_uart.c
 
 src\main.c
 

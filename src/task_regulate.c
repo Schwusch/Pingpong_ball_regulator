@@ -7,7 +7,6 @@
 
 #include <asf.h>
 #include "pwm_func.h"
-#include "io_uart.h"
 #include "sync.h"
 
 void task_regulate(void *pvParameters)
