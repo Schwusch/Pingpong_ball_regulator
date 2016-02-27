@@ -2,7 +2,7 @@
  * motorshield.c
  *
  * Created: 2016-02-19 13:59:23
- *  Author: Dennis, Jonathan
+ *  Author: Jonathan
  */ 
 
 #include <asf.h>

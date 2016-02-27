@@ -2,7 +2,7 @@
  * pwm.c
  *
  * Created: 2016-02-19 14:12:43
- *  Author: Dennis, Jonathan
+ *  Author: Jonathan
  */ 
 #include <asf.h>
 #include "pwm_func.h"

@@ -2,7 +2,7 @@
  * pwm.h
  *
  * Created: 2016-02-19 14:14:16
- *  Author: Spellabbet
+ *  Author: Jonathan
  */ 
 
 

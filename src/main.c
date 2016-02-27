@@ -15,27 +15,19 @@
 
 
 xSemaphoreHandle sync = 1;
-uint16_t timer = 50;
-uint16_t dac_value = 666;
-uint16_t adc_distance[CONV_ARR_LENGTH] = {0};
-uint16_t *p_adc_distance = adc_distance;
 
-static void configure_console(void)
-/* Enables feedback through the USB-cable back to terminal within Atmel Studio */
-{
-	const usart_serial_options_t uart_serial_options = {
-		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
-	};
-
-	/* Configure console UART. */
-	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
-	stdio_serial_init(CONF_UART, &uart_serial_options);
-}
+uint16_t adc_to_mm[CONV_ARR_LENGTH] = {0};
+uint16_t meas_distance = 0;
+uint16_t err = 0;
+uint16_t output = 0;
+uint16_t timer;
+float prop_gain;
+float int_gain;
+float der_gain;
+uint16_t set_point;
 
 int main (void)
 {
-	/* Insert system clock initialization code here (sysclk_init()). */
 	sysclk_init();
 	board_init();
 	configure_console();
@@ -43,7 +35,6 @@ int main (void)
 	motorshield_init();	
 	adc_config();
 	pwm_config();
-
 	
 	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_dir(PIO_PB14_IDX, IOPORT_DIR_OUTPUT);
@@ -56,5 +47,4 @@ int main (void)
 	xTaskCreate(task_regulate, (const signed char * const) "Regulate", TASK_COM_STACKSIZE,NULL,2,NULL);
 	
 	vTaskStartScheduler();	
-	
 }

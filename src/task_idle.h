@@ -2,7 +2,7 @@
  * task_idle.h
  *
  * Created: 2/24/2016 14:42:46
- *  Author: jonathan
+ *  Author: Jonathan
  */ 
 
 

@@ -2,7 +2,7 @@
  * task_com.h
  *
  * Created: 2016-02-19 14:50:39
- *  Author: Spellabbet
+ *  Author: Jonathan
  */ 
 
 
