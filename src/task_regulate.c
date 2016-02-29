@@ -61,7 +61,7 @@ void task_regulate(void *pvParameters)
 		int_sum += new_error;
 		delta_error = old_error - new_error;
 		
-		calc_output = (uint8_t) (prop_gain * new_error + int_gain * (1/timer) * int_sum + (delta_error/timer) * der_gain);
+		calc_output = (uint8_t) (prop_gain * new_error + (int_gain/timer) * int_sum + (delta_error/timer) * der_gain);
 		
 		old_error = new_error;
 		/* Limit output to 100% */

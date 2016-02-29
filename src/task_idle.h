@@ -11,6 +11,4 @@
 
 void task_idle(void *pvParameters);
 
-
-
 #endif /* TASK_IDLE_H_ */

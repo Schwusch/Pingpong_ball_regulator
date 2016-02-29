@@ -9,7 +9,6 @@
 #include "sync.h"
 #include "uart_recieve_values.h"
 
-
 void matlab_recieve_values(void)
 {
 	/* Buffer for receiving a string */

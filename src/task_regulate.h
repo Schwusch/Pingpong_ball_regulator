@@ -11,6 +11,4 @@
 
 void task_regulate(void *pvParameters);
 
-
-
 #endif /* TASK_REGULATE_H_ */

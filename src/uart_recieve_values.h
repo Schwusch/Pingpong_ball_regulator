@@ -12,5 +12,4 @@
 void matlab_recieve_values(void);
 void configure_console(void);
 
-
 #endif /* UART_RECIEVE_VALUES_H_ */

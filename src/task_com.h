@@ -14,5 +14,4 @@
 
 void task_com(void *pvParameters);
 
-
 #endif /* TASK_COM_H_ */

@@ -38,8 +38,6 @@ void task_com(void *pvParameters)
 		ioport_set_pin_level(PIO_PB26_IDX,LOW);
 		
 		/* Sleep for some time */
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
-		
-		
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);		
 	}
 }

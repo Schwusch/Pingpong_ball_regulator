@@ -23,6 +23,4 @@ extern uint16_t set_point;
 #define CONV_ARR_LENGTH 100
 #define BUF_LEN 16
 
-
-
 #endif /* SYNC_H_ */

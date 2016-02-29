@@ -12,8 +12,6 @@
 #include "task_idle.h"
 #include "uart_recieve_values.h"
 
-
-
 xSemaphoreHandle sync = 1;
 
 uint16_t adc_to_mm[CONV_ARR_LENGTH] = {0};
