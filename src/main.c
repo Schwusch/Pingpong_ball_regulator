@@ -16,7 +16,7 @@ xSemaphoreHandle sync = 1;
 
 uint16_t adc_to_mm[CONV_ARR_LENGTH] = {0};
 uint16_t meas_distance = 0;
-uint16_t err = 0;
+int err = 0;
 uint16_t output = 0;
 uint16_t timer;
 float prop_gain;

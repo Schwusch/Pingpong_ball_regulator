@@ -12,7 +12,7 @@
 extern xSemaphoreHandle sync;
 extern uint16_t adc_to_mm[];
 extern uint16_t meas_distance;
-extern uint16_t err;
+extern int err;
 extern uint16_t output;
 extern uint16_t timer;
 extern float prop_gain;

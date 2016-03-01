@@ -9,7 +9,7 @@
 #include "pwm_func.h"
 #include "sync.h"
 
-#define MOV_AVER_LENGTH 4
+#define MOV_AVER_LENGTH 10
 
 void task_regulate(void *pvParameters)
 {
@@ -18,10 +18,10 @@ void task_regulate(void *pvParameters)
 	xLastWakeTime = xTaskGetTickCount();
 	
 	uint16_t invalue = 0;
-	int16_t int_sum = 0;
-	int16_t old_error = 0;
-	int16_t new_error = 0;
-	int16_t delta_error = 0;
+	int int_sum = 0;
+	int old_error = 0;
+	int new_error = 0;
+	int delta_error = 0;
 	uint8_t calc_output = 0;
 	uint16_t calc_distance = 0;
 	
@@ -61,7 +61,7 @@ void task_regulate(void *pvParameters)
 		int_sum += new_error;
 		delta_error = old_error - new_error;
 		
-		calc_output = (uint8_t) (prop_gain * new_error + (int_gain/timer) * int_sum + (delta_error/timer) * der_gain);
+		calc_output = (uint8_t) ((-prop_gain) * new_error + (int_gain/timer) * int_sum + (delta_error/timer) * der_gain);
 		
 		old_error = new_error;
 		/* Limit output to 100% */
