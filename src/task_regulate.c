@@ -4,7 +4,6 @@
  * Created: 2016-02-19 15:03:14
  *  Author: Jonathan
  */ 
-
 #include <asf.h>
 #include "pwm_func.h"
 #include "sync.h"
@@ -62,14 +61,8 @@ void task_regulate(void *pvParameters)
 		int_sum += new_error;
 		
 		/* Limit integral sum */
-		if(int_sum > 2500)
-		{
-			int_sum = 2500;
-		} 
-		else if (int_sum < -2500)
-		{
-			int_sum = -2500;
-		}
+		if(int_sum > 2500){	int_sum = 2500;	} 
+		else if (int_sum < -2500){ int_sum = -2500;	}
 		
 		delta_error = old_error - new_error;		
 		calc_output = (int) (OFFSET + (-prop_gain) * (new_error + (timer * int_sum)/int_gain + (delta_error/timer) * der_gain));
@@ -77,11 +70,8 @@ void task_regulate(void *pvParameters)
 		old_error = new_error;
 		
 		/* Limit output to 0-100% */
-		if (calc_output > 1024){
-			calc_output = 1024;
-		}else if(calc_output < 0){
-			calc_output = 0;
-		}
+		if (calc_output > 999){ calc_output = 999; }
+		else if(calc_output < 0){ calc_output = 0; }
 		
 		/* Write output */
 		pwm_set_duty_cycle(calc_output);

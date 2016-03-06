@@ -1,5 +1,4 @@
-
-% Controller values
+% Controller/plotting settings
 %----------------------------------------------
 P = 150;
 I = 150000;
@@ -9,17 +8,15 @@ TIMER = 50;
 COM_PORT = 'COM6';
 BAUDRATE = 115200;
 %Import conversion array
-A = importdata('regulator1.txt');
+A = importdata('regulator4.txt');
+%Window/plotting size in seconds
+plot_time = 20;
 %-----------------------------------------------
 a = serial(COM_PORT, 'BaudRate', BAUDRATE); 
 set(a, 'Terminator', 10);
 fopen(a);
 disp('Connected to Arduino')
-SENDING = 1;
-flushinput(a);
-index = 1;
 freq = 1000/TIMER;
-plot_time = 20;
 values = rand(freq*plot_time,4);
 tempValues = zeros(freq,3);
 setpointvector = ones(freq*plot_time,1).*SETDISTANCE;
@@ -28,20 +25,20 @@ x = 1:freq*plot_time;
 %Set up Plot
 plotGraph = plot(x,values);
 pause(1)
-%flush serial output buffer before attempting to send
+%flush serial output/input buffer before attempting to send
 flushoutput(a);
+flushinput(a);
+index = 1;
 while (index < 101)
     str = num2str(A(index));
     fprintf(a, str);
     index = index + 1;
-    flushoutput(a);
 end
 fprintf(a, num2str(P));
 fprintf(a, num2str(I));
 fprintf(a, num2str(D));
 fprintf(a, num2str(SETDISTANCE));
 fprintf(a, num2str(TIMER));
-
 while ishandle(plotGraph)    
     index = 1;  
     %read and insert values to temp matrix

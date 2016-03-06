@@ -9,7 +9,6 @@
 #include "pwm_func.h"
 #include "task_com.h"
 #include "task_regulate.h"
-#include "task_idle.h"
 #include "uart_recieve_values.h"
 
 xSemaphoreHandle sync = 1;
@@ -40,7 +39,6 @@ int main (void)
 	matlab_recieve_values();
 	
 	vSemaphoreCreateBinary(sync);
-	xTaskCreate(task_idle, (const signed char * const) "Idle", TASK_COM_STACKSIZE, NULL, 1, NULL);	
 	xTaskCreate(task_com, (const signed char * const) "Com", TASK_COM_STACKSIZE, NULL, 2, NULL);	
 	xTaskCreate(task_regulate, (const signed char * const) "Regulate", TASK_COM_STACKSIZE,NULL,2,NULL);
 	

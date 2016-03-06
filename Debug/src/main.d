@@ -153,7 +153,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/motorshield.h \
  ../src/adc_func.h ../src/sync.h ../src/pwm_func.h ../src/task_com.h \
- ../src/task_regulate.h ../src/task_idle.h ../src/uart_recieve_values.h
+ ../src/task_regulate.h ../src/uart_recieve_values.h
 
 ../src/asf.h:
 
@@ -488,7 +488,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/task_com.h:
 
 ../src/task_regulate.h:
-
-../src/task_idle.h:
 
 ../src/uart_recieve_values.h:

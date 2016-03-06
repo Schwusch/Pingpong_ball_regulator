@@ -110,7 +110,6 @@ C_SRCS +=  \
 ../src/ASF/common/utils/stdio/read.c \
 ../src/ASF/sam/drivers/usart/usart.c \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c \
-../src/task_idle.c \
 ../src/uart_recieve_values.c \
 ../src/ASF/common/utils/stdio/write.c \
 ../src/ASF/common/services/serial/usart_serial.c \
@@ -157,7 +156,6 @@ src/adc_func.o \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
-src/task_idle.o \
 src/uart_recieve_values.o \
 src/ASF/common/utils/stdio/write.o \
 src/ASF/common/services/serial/usart_serial.o \
@@ -197,7 +195,6 @@ src/adc_func.o \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
-src/task_idle.o \
 src/uart_recieve_values.o \
 src/ASF/common/utils/stdio/write.o \
 src/ASF/common/services/serial/usart_serial.o \
@@ -237,7 +234,6 @@ src/adc_func.d \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
-src/task_idle.d \
 src/uart_recieve_values.d \
 src/ASF/common/utils/stdio/write.d \
 src/ASF/common/services/serial/usart_serial.d \
@@ -277,7 +273,6 @@ src/adc_func.d \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
-src/task_idle.d \
 src/uart_recieve_values.d \
 src/ASF/common/utils/stdio/write.d \
 src/ASF/common/services/serial/usart_serial.d \
@@ -327,8 +322,6 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 
