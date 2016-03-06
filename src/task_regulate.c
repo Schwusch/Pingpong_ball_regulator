@@ -9,7 +9,8 @@
 #include "pwm_func.h"
 #include "sync.h"
 
-#define MOV_AVER_LENGTH 10
+#define MOV_AVER_LENGTH 20
+#define OFFSET 410
 
 void task_regulate(void *pvParameters)
 {
@@ -22,7 +23,7 @@ void task_regulate(void *pvParameters)
 	int old_error = 0;
 	int new_error = 0;
 	int delta_error = 0;
-	uint8_t calc_output = 0;
+	int calc_output = 0;
 	uint16_t calc_distance = 0;
 	
 	static uint16_t xbuff[MOV_AVER_LENGTH] = {0};
@@ -59,14 +60,27 @@ void task_regulate(void *pvParameters)
 		/* Control calculation */
 		new_error = set_point - calc_distance;
 		int_sum += new_error;
-		delta_error = old_error - new_error;
 		
-		calc_output = (uint8_t) ((-prop_gain) * new_error + (int_gain/timer) * int_sum + (delta_error/timer) * der_gain);
+		/* Limit integral sum */
+		if(int_sum > 2500)
+		{
+			int_sum = 2500;
+		} 
+		else if (int_sum < -2500)
+		{
+			int_sum = -2500;
+		}
+		
+		delta_error = old_error - new_error;		
+		calc_output = (int) (OFFSET + (-prop_gain) * (new_error + (timer * int_sum)/int_gain + (delta_error/timer) * der_gain));
 		
 		old_error = new_error;
-		/* Limit output to 100% */
-		if (calc_output > 100){
-			calc_output = 100;
+		
+		/* Limit output to 0-100% */
+		if (calc_output > 1024){
+			calc_output = 1024;
+		}else if(calc_output < 0){
+			calc_output = 0;
 		}
 		
 		/* Write output */
