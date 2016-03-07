@@ -1,5 +1,4 @@
-% Controller/plotting settings
-%----------------------------------------------
+% Controller/plotting settings-----------------
 P = 150;
 I = 150000;
 D = 0;
@@ -7,10 +6,8 @@ SETDISTANCE = 200;
 TIMER = 50;
 COM_PORT = 'COM6';
 BAUDRATE = 115200;
-%Import conversion array
-A = importdata('regulator4.txt');
-%Window/plotting size in seconds
-plot_time = 20;
+A = importdata('regulator4.txt');               %Import conversion array
+plot_time = 20;                                 %Window/plotting size in seconds
 %-----------------------------------------------
 a = serial(COM_PORT, 'BaudRate', BAUDRATE); 
 set(a, 'Terminator', 10);
@@ -22,12 +19,10 @@ tempValues = zeros(freq,3);
 setpointvector = ones(freq*plot_time,1).*SETDISTANCE;
 values(:,4) = setpointvector;
 x = 1:freq*plot_time;
-%Set up Plot
-plotGraph = plot(x,values);
+plotGraph = plot(x,values);                     %Set up Plot
 pause(1)
-%flush serial output/input buffer before attempting to send
-flushoutput(a);
-flushinput(a);
+flushoutput(a);                                 %flush serial output/input 
+flushinput(a);                                  %buffer before attempting to send
 index = 1;
 while (index < 101)
     str = num2str(A(index));
@@ -41,8 +36,7 @@ fprintf(a, num2str(SETDISTANCE));
 fprintf(a, num2str(TIMER));
 while ishandle(plotGraph)    
     index = 1;  
-    %read and insert values to temp matrix
-    while(index < freq + 1)
+    while(index < freq + 1)                     %read and insert values to temp matrix
         tempValues(1,1) = str2double(fscanf(a,'%c'));   
         tempValues(1,2) = str2double(fscanf(a,'%c'));
         tempValues(1,3) = str2double(fscanf(a,'%c'));        
