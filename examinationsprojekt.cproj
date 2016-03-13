@@ -580,6 +580,9 @@
     <None Include="src\config\conf_sio2host.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\fdacoefs.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\task_regulate.h">
       <SubType>compile</SubType>
     </Compile>

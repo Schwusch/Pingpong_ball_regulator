@@ -18,6 +18,8 @@ extern uint16_t timer;
 extern float prop_gain;
 extern float int_gain;
 extern float der_gain;
+extern int offset;
+extern int antiwindup;
 extern uint16_t set_point;
 
 #define CONV_ARR_LENGTH 100

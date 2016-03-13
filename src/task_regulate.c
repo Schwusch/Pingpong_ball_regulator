@@ -7,9 +7,7 @@
 #include <asf.h>
 #include "pwm_func.h"
 #include "sync.h"
-
-#define MOV_AVER_LENGTH 20
-#define OFFSET 410
+#include "fdacoefs.h"
 
 void task_regulate(void *pvParameters)
 {
@@ -17,15 +15,15 @@ void task_regulate(void *pvParameters)
 	const portTickType xTimeIncrement = timer;
 	xLastWakeTime = xTaskGetTickCount();
 	
-	uint16_t invalue = 0;
+	int invalue = 0;
 	int int_sum = 0;
 	int old_error = 0;
 	int new_error = 0;
 	int delta_error = 0;
 	int calc_output = 0;
-	uint16_t calc_distance = 0;
+	int calc_distance = 0;
 	
-	static uint16_t xbuff[MOV_AVER_LENGTH] = {0};
+	int xbuff[BL] = {0};
 	
 	while(1){
 		/* Set pin high for performance measurement */
@@ -36,22 +34,23 @@ void task_regulate(void *pvParameters)
 		while ((adc_get_status(ADC) & 0x1<<24) == 0);
 		invalue = adc_get_latest_value(ADC);
 		
-		/* Move moving average buffer one sample forward */
+		/* Move invalue buffer one sample forward */
 		
-		for(int k = MOV_AVER_LENGTH - 1; k > 0; k--){
+		for(int k = BL - 1; k > 0; k--){
 			xbuff[k] = xbuff[k-1];
 		}
 		xbuff[0] = invalue;
 		
-		/* Calculate the moving average */
-		uint16_t temp_sum = 0;
-		for(int k = 0; k < MOV_AVER_LENGTH; k++){
-			temp_sum += xbuff[k];
+		/* filter the signal */
+		float temp_sum = 0;
+		for(int k = 0; k < BL; k++){
+			temp_sum += xbuff[k] * B[k];
 		}
-		invalue = temp_sum / MOV_AVER_LENGTH;
+		if(temp_sum < 0){ temp_sum = 0;}
+		invalue = (int) temp_sum;
 		
 		/* Calculate ball distance */
-		uint8_t adc_to_mm_index = (invalue/10) - 1;
+		uint8_t adc_to_mm_index = max((invalue/10) - 1, 0);
 		uint8_t diff = adc_to_mm[adc_to_mm_index] - adc_to_mm[adc_to_mm_index + 1];
 		uint8_t interpol = (diff * (invalue % 10)) / 10;		
 		calc_distance = adc_to_mm[adc_to_mm_index] + interpol;
@@ -61,11 +60,15 @@ void task_regulate(void *pvParameters)
 		int_sum += new_error;
 		
 		/* Limit integral sum */
-		if(int_sum > 2500){	int_sum = 2500;	} 
-		else if (int_sum < -2500){ int_sum = -2500;	}
+		if(int_sum > antiwindup){	int_sum = antiwindup;	} 
+		else if (int_sum < -antiwindup){ int_sum = -antiwindup;	}
 		
-		delta_error = old_error - new_error;		
-		calc_output = (int) (OFFSET + (-prop_gain) * (new_error + (timer * int_sum)/int_gain + (delta_error/timer) * der_gain));
+		delta_error = old_error - new_error;	
+		float p_part = (float) (new_error * (-prop_gain));
+		float i_part = (float) ((timer * int_sum)/int_gain) * (-prop_gain);
+		float d_part = (float) ((delta_error/timer) * der_gain) * (-prop_gain);
+		float sum = p_part + i_part + d_part;
+		calc_output = (int) (offset + sum);
 		
 		old_error = new_error;
 		
@@ -90,4 +93,10 @@ void task_regulate(void *pvParameters)
 		/* Sleep for some time */
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
 	}
+}
+
+void regulate_init(void)
+{
+	pwm_set_duty_cycle(offset);
+	delay_ms(5000);
 }

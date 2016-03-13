@@ -19,20 +19,19 @@ void matlab_recieve_values(void)
 	{
 		gets(buffer);
 		adc_to_mm[i] = atoi(buffer);
-	}
-		
+	}		
 	gets(buffer);
-	prop_gain = (float)atoi(buffer) / 1000;
-	
+	prop_gain = (float)atoi(buffer) / 1000;	
 	gets(buffer);
-	int_gain = (float)atoi(buffer) / 1000;
-	
+	int_gain = (float)atoi(buffer) / 1000;	
 	gets(buffer);
-	der_gain = (float)atoi(buffer) / 1000;
-	
+	der_gain = (float)atoi(buffer) / 1000;	
 	gets(buffer);
-	set_point = atoi(buffer);
-	
+	set_point = atoi(buffer);	
+	gets(buffer);
+	offset = atoi(buffer);	
+	gets(buffer);
+	antiwindup = atoi(buffer);	
 	gets(buffer);
 	timer = atoi(buffer);	
 }

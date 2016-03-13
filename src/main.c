@@ -21,6 +21,8 @@ uint16_t timer;
 float prop_gain;
 float int_gain;
 float der_gain;
+int offset;
+int antiwindup;
 uint16_t set_point;
 
 int main (void)
@@ -32,11 +34,13 @@ int main (void)
 	motorshield_init();	
 	adc_config();
 	pwm_config();
+	delay_init(sysclk_get_cpu_hz());
 	
 	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_dir(PIO_PB14_IDX, IOPORT_DIR_OUTPUT);
 	
 	matlab_recieve_values();
+	regulate_init();
 	
 	vSemaphoreCreateBinary(sync);
 	xTaskCreate(task_com, (const signed char * const) "Com", TASK_COM_STACKSIZE, NULL, 2, NULL);	

@@ -152,7 +152,8 @@ src/task_regulate.d src/task_regulate.o: ../src/task_regulate.c \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/pwm_func.h ../src/sync.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/pwm_func.h ../src/sync.h \
+ ../src/fdacoefs.h
 
 ../src/asf.h:
 
@@ -479,3 +480,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/pwm_func.h:
 
 ../src/sync.h:
+
+../src/fdacoefs.h:
