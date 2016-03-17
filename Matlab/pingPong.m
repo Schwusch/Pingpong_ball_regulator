@@ -8,8 +8,8 @@ ANTIWINDUP = 100000;                            % Maximum integral sum
 FREQUENCY = 20;                                 % Frequency for sampling(Hz)
 COM_PORT = 'COM6';
 BAUDRATE = 115200;
-A = importdata('regulator4.txt');               % Import conversion array
-PLOT_TIME = 20;                                 % Window/plotting size in seconds
+A = xlsread('bana4.xlsx');                      % Import conversion array
+PLOT_TIME = 40;                                 % Window/plotting size in seconds
 % Connect to Arduino---------------------------
 a = serial(COM_PORT, 'BaudRate', BAUDRATE); 
 set(a, 'Terminator', 10);
@@ -38,7 +38,7 @@ while ishandle(plotGraph)                       % While plotting window is activ
     for index=1 : FREQUENCY                     % Read and insert values to temp matrix
         tempValues(1,1) = str2double(fscanf(a,'%c'));   
         tempValues(1,2) = str2double(fscanf(a,'%c'));
-        tempValues(1,3) = str2double(fscanf(a,'%c'));        
+        tempValues(1,3) = str2double(fscanf(a,'%c'))/10;        
         tempValues = circshift(tempValues, 1);  % Shift values downwards    
     end
     values = circshift(values, FREQUENCY);      % Shift big matrix to fit temporary matrix
