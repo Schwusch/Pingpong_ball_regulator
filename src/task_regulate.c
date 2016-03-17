@@ -22,6 +22,7 @@ void task_regulate(void *pvParameters)
 	int delta_error = 0;
 	int calc_output = 0;
 	int calc_distance = 0;
+	float dT = (float) timer/1000;
 	
 	int xbuff[BL] = {0};
 	
@@ -46,11 +47,10 @@ void task_regulate(void *pvParameters)
 		for(int k = 0; k < BL; k++){
 			temp_sum += xbuff[k] * B[k];
 		}
-		if(temp_sum < 0){ temp_sum = 0;}
 		invalue = (int) temp_sum;
 		
 		/* Calculate ball distance */
-		uint8_t adc_to_mm_index = max((invalue/10) - 1, 0);
+		uint8_t adc_to_mm_index = min(max((invalue/10) - 1, 0), 98);
 		uint8_t diff = adc_to_mm[adc_to_mm_index] - adc_to_mm[adc_to_mm_index + 1];
 		uint8_t interpol = (diff * (invalue % 10)) / 10;		
 		calc_distance = adc_to_mm[adc_to_mm_index] + interpol;
@@ -60,21 +60,18 @@ void task_regulate(void *pvParameters)
 		int_sum += new_error;
 		
 		/* Limit integral sum */
-		if(int_sum > antiwindup){	int_sum = antiwindup;	} 
-		else if (int_sum < -antiwindup){ int_sum = -antiwindup;	}
+		int_sum = max(min(int_sum, antiwindup), -antiwindup);
 		
 		delta_error = old_error - new_error;	
 		float p_part = (float) (new_error * (-prop_gain));
-		float i_part = (float) ((timer * int_sum)/int_gain) * (-prop_gain);
-		float d_part = (float) ((delta_error/timer) * der_gain) * (-prop_gain);
+		float i_part = (float) ((dT * int_sum)/int_gain) * (-prop_gain);
+		float d_part = (float) ((delta_error/dT) * der_gain) * (-prop_gain);
 		float sum = p_part + i_part + d_part;
 		calc_output = (int) (offset + sum);
 		
-		old_error = new_error;
-		
+		old_error = new_error;		
 		/* Limit output to 0-100% */
-		if (calc_output > 999){ calc_output = 999; }
-		else if(calc_output < 0){ calc_output = 0; }
+		calc_output = max(min(calc_output, 999), 0);
 		
 		/* Write output */
 		pwm_set_duty_cycle(calc_output);

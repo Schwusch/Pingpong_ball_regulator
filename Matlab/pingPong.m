@@ -1,6 +1,6 @@
 % Controller/plotting settings-----------------
 P = 150;                                        % Values with a factor of 1000
-I = 150000;                                     % --||--
+I = 150;                                        % --||--
 D = 0;                                          % --||--
 SETDISTANCE = 200;                              % Setpoint in mm from sensor
 OFFSET = 500;                                   % Offset 0-999

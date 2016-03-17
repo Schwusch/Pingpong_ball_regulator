@@ -43,7 +43,7 @@ int main (void)
 	regulate_init();
 	
 	vSemaphoreCreateBinary(sync);
-	xTaskCreate(task_com, (const signed char * const) "Com", TASK_COM_STACKSIZE, NULL, 2, NULL);	
+	xTaskCreate(task_com, (const signed char * const) "Com", TASK_COM_STACKSIZE, NULL, 1, NULL);	
 	xTaskCreate(task_regulate, (const signed char * const) "Regulate", TASK_COM_STACKSIZE,NULL,2,NULL);
 	
 	vTaskStartScheduler();	
