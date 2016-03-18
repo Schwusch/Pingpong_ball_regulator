@@ -1,5 +1,5 @@
 /*
- * adc.c
+ * adc_func.c
  *
  * Created: 2016-02-19 14:06:32
  *  Author: Jonathan
@@ -8,6 +8,7 @@
 #include <asf.h>
 #include "adc_func.h"
 
+/* Enables analog to digital conversion */
 void adc_config(void)
 {
 	pmc_enable_periph_clk(ID_ADC);

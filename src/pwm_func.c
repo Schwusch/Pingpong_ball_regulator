@@ -9,6 +9,7 @@
 
 static pwm_channel_t pwm_instance;
 
+/* Enables PWM on DAC0 pin used for fan controlling */
 void pwm_config(void)
 {
 	if(pmc_enable_periph_clk(ID_PWM) == 0) {		
@@ -31,6 +32,7 @@ void pwm_config(void)
 	}
 }
 
+/* Argument should be a value between 0-999 */
 void pwm_set_duty_cycle(uint32_t dutycycle)
 {
 	pwm_channel_update_duty(PWM, &pwm_instance, dutycycle);

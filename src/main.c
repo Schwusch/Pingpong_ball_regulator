@@ -11,8 +11,8 @@
 #include "task_regulate.h"
 #include "uart_recieve_values.h"
 
+/* "Global" variables shared between tasks declared here */
 xSemaphoreHandle sync = 1;
-
 uint16_t adc_to_mm[CONV_ARR_LENGTH] = {0};
 uint16_t meas_distance = 0;
 int err = 0;
@@ -27,6 +27,7 @@ uint16_t set_point;
 
 int main (void)
 {
+	/* Initialize board and all functions that will be used */
 	sysclk_init();
 	board_init();
 	configure_console();
@@ -36,15 +37,14 @@ int main (void)
 	pwm_config();
 	delay_init(sysclk_get_cpu_hz());
 	
-	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
-	ioport_set_pin_dir(PIO_PB14_IDX, IOPORT_DIR_OUTPUT);
-	
+	/* Receive variables that will be used for PID-controller */
 	matlab_recieve_values();
+	/* Start fan with provided offset for a few seconds to reach measurable span */
 	regulate_init();
 	
+	/* Configure RTOS tasks and start tasks */
 	vSemaphoreCreateBinary(sync);
-	xTaskCreate(task_com, (const signed char * const) "Com", TASK_COM_STACKSIZE, NULL, 1, NULL);	
-	xTaskCreate(task_regulate, (const signed char * const) "Regulate", TASK_COM_STACKSIZE,NULL,2,NULL);
-	
+	xTaskCreate(task_com, (const signed char * const) "Com", TASK_STACKSIZE, NULL, 1, NULL);	
+	xTaskCreate(task_regulate, (const signed char * const) "Regulate", TASK_STACKSIZE,NULL,2,NULL);	
 	vTaskStartScheduler();	
 }

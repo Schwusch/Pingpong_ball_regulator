@@ -8,7 +8,7 @@
  * Discrete-Time FIR Filter (real)
  * -------------------------------
  * Filter Structure  : Direct-Form FIR
- * Filter Length     : 26
+ * Filter Length     : 20
  * Stable            : Yes
  * Linear Phase      : Yes (Type 2)
  */

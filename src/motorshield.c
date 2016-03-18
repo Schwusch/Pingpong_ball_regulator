@@ -8,6 +8,7 @@
 #include <asf.h>
 #include "motorshield.h"
 
+/* Enables motorshield used for fan controlling */
 void motorshield_init(void)
 {
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_INPUT);
