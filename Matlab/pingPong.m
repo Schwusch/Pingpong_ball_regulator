@@ -1,11 +1,11 @@
 %----------------------------------------------|
-% By Jonathan BÃ¶cker and David Tran            |
+% By Jonathan Böcker and David Tran            |
 % 2016-03-20                                   |
 %----------------------------------------------|
 % Controller/plotting settings-----------------
 P = '120';                                      % Values with a factor of 1000
 I = '700';                                      % --||--
-D = '500';                                      % --||--
+D = '200';                                      % --||--
 SETDISTANCE = 200;                              % Setpoint in mm from sensor
 OFFSET = '500';                                 % Offset 0-999
 ANTIWINDUP = '100000';                          % Maximum integral sum
@@ -13,7 +13,7 @@ FREQUENCY = 20;                                 % Frequency for sampling(Hz)
 COM_PORT = 'COM6';
 BAUDRATE = 115200;
 A = xlsread('bana4.xlsx');                      % Import conversion array
-PLOT_TIME = 40;                                 % Window/plotting size in seconds
+PLOT_TIME = 80;                                 % Window/plotting size in seconds
 % Connect to Arduino---------------------------
 a = serial(COM_PORT, 'BaudRate', BAUDRATE); 
 set(a, 'Terminator', 10);
@@ -49,17 +49,17 @@ while ishandle(plotGraph)                       % While plotting window is activ
     values(1:FREQUENCY,1:3) = tempValues;       % Insert temp matrix to plot latest values
     plotGraph = plot(x,values);                 % Plot latest values
     grid on
-    legend('Distance', 'error', 'output', 'setpoint');
+    legend('Distance [mm]', 'Error [mm]', 'Output (0-999)', 'Setpoint [mm]');
     xlabel('Seconds');
     ylabel('Values');
-    title('Pingisbollreglering');
+    title('Ball-controller');
     pause(0.5)                                  % Pause to let Matlab render
 end
 % Final plot after closing the continous plotting
 fclose(a);
 plot(x,values);
-legend('Distance', 'error', 'output', 'setpoint');
+legend('Distance [mm]', 'Error [mm]', 'Output (0-999)', 'Setpoint [mm]');
 grid on
 xlabel('Seconds');
 ylabel('Values');
-title('Pingisbollreglering');
+title('Ball-controller');
