@@ -25,7 +25,7 @@ void task_regulate(void *pvParameters)
 		while ((adc_get_status(ADC) & 0x1<<24) == 0);		
 		int invalue = adc_get_latest_value(ADC);		
 		/* filter the signal */
-		invalue = signal_filter(invalue);		
+		invalue = signal_filter(invalue);
 		/* Calculate ball distance */
 		int calc_distance = calculate_distance(invalue);		
 		/* Control calculation */
@@ -78,7 +78,8 @@ int calculate_distance(int invalue)
 	int diff = adc_to_mm[adc_to_mm_index] - adc_to_mm[adc_to_mm_index + 1];
 	int interpol = (diff * (invalue % 10)) / 10;
 	
-	return (adc_to_mm[adc_to_mm_index] + interpol);
+	/*return (adc_to_mm[adc_to_mm_index] + interpol);*/
+	return adc_to_mm[adc_to_mm_index] - interpol;
 }
 
 /* Calculates a PWM value with a PID algorithm

@@ -25,7 +25,7 @@ void pwm_config(void)
 		pwm_instance.ul_period = PWM_RESOLUTION;
 		pwm_instance.ul_duty = 0;
 		pwm_instance.channel = PWM_CHANNEL_0;
-		pwm_channel_init(PWM, &pwm_instance);		
+		pwm_channel_init(PWM, &pwm_instance);
 		pio_set_peripheral(PWM_PIO, PWM_PIO_PERIPHERAL, PWM_PIO_PIN);
 		pwm_channel_enable(PWM, PWM_CHANNEL_0);
 		pwm_set_duty_cycle(0);		
