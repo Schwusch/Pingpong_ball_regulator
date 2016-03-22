@@ -11,7 +11,7 @@ static pwm_channel_t pwm_instance;
 
 /* Enables PWM on DAC0 pin used for fan controlling */
 void pwm_config(void)
-{
+{		
 	if(pmc_enable_periph_clk(ID_PWM) == 0) {		
 		pwm_clock_t pwmclock = {
 			.ul_clka = PWM_FREQUENCY * PWM_RESOLUTION,

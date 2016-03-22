@@ -1,41 +1,44 @@
 /*
- * task_regulate.c
+ * utilities.c
  *
- * Created: 2016-02-19 15:03:14
- *  Author: Jonathan
+ * Created: 3/22/2016 13:36:42
+ *  Author: jonathan
  */ 
 #include <asf.h>
-#include "pwm_func.h"
 #include "sync.h"
-#include "fdacoefs.h"
-#include "task_regulate.h"
+#include "utilities.h"
+#include "config_functions/pwm_func.h"
 
-/* This task reads an analog value, filters it 
- * and calculates PID value for fan PWM 
+/* Reads global values from serial.
+ * Received values are used in task_regulate
  */
-void task_regulate(void *pvParameters)
+void matlab_recieve_values(void)
 {
-	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = timer;
-	xLastWakeTime = xTaskGetTickCount();
+	/* Buffer for receiving a string */
+	uint8_t buffer[BUF_LEN] = {0};
 	
-	while(1){		
-		/*Start ADC and read the value */
-		adc_start(ADC);
-		while ((adc_get_status(ADC) & 0x1<<24) == 0);		
-		int invalue = adc_get_latest_value(ADC);		
-		/* filter the signal */
-		invalue = signal_filter(invalue);
-		/* Calculate ball distance */
-		int calc_distance = calculate_distance(invalue);		
-		/* Control calculation */
-		int calc_output = pid_controller(calc_distance);		
-		/* Write output */
-		pwm_set_duty_cycle(calc_output);
-		/* Sleep for some time */
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
+	/* Receive the conversion array */
+	for (int i = 0; i < CONV_ARR_LENGTH; i++)
+	{
+		gets(buffer);
+		adc_to_mm[i] = atoi(buffer);
 	}
+	gets(buffer);
+	prop_gain = (float)atoi(buffer) / 1000;
+	gets(buffer);
+	int_gain = (float)atoi(buffer) / 1000;
+	gets(buffer);
+	der_gain = (float)atoi(buffer) / 1000;
+	gets(buffer);
+	set_point = atoi(buffer);
+	gets(buffer);
+	offset = atoi(buffer);
+	gets(buffer);
+	antiwindup = atoi(buffer);
+	gets(buffer);
+	timer = atoi(buffer);
 }
+
 /* Sets a value (offset) to PWM duty cycle and waits a 
  * couple of seconds so that the ball will be in measurable range 
  * by the time the controller task starts
@@ -51,6 +54,12 @@ void regulate_init(void)
  */
 int signal_filter(int invalue)
 {
+	const float B[4] = {
+		-0.096412298233823315, 
+		0.58755662129250108, 
+		0.58755662129250108, 
+		-0.096412298233823315
+	};
 	static int xbuff[BL] = {0};
 	float temp_sum = 0;
 		
@@ -66,6 +75,7 @@ int signal_filter(int invalue)
 	}	
 	return (int) temp_sum;
 }
+
 /* Converts the AD signal to a 
  * distance in mm from the sensor 
  */
@@ -110,7 +120,7 @@ int pid_controller(int calc_distance)
 	/* An offset is added to the PID sum */
 	int calc_output = (int) (offset + sum);
 	/* Limit output to 0-100% */
-	calc_output = max(min(calc_output, 999), 0);
+	calc_output = max(min(calc_output, PWM_RESOLUTION), 0);
 	old_error = new_error;	
 	/* Transfer values between tasks */
 	if(xSemaphoreTake(sync, portMAX_DELAY)){

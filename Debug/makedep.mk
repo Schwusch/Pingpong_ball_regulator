@@ -2,15 +2,23 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-src\adc_func.c
-
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\usart\usart.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\uart_recieve_values.c
+src\config_functions\adc_func.c
+
+src\config_functions\console_func.c
+
+src\config_functions\pwm_func.c
+
+src\tasks\task_com.c
+
+src\tasks\task_regulate.c
+
+src\utilities.c
 
 src\ASF\common\utils\stdio\write.c
 
@@ -27,14 +35,6 @@ src\ASF\sam\drivers\tc\tc.c
 src\ASF\sam\drivers\pwm\pwm.c
 
 src\main.c
-
-src\motorshield.c
-
-src\pwm_func.c
-
-src\task_com.c
-
-src\task_regulate.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c
 

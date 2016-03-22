@@ -3,11 +3,11 @@
 % 2016-03-20                                   |
 %----------------------------------------------|
 % Controller/plotting settings-----------------
-P = '120';                                      % Values with a factor of 1000
-I = '700';                                      % --||--
+P = '100';                                      % Values with a factor of 1000
+I = '600';                                      % --||--
 D = '200';                                      % --||--
 SETDISTANCE = 200;                              % Setpoint in mm from sensor
-OFFSET = '500';                                 % Offset 0-999
+OFFSET = '600';                                 % Offset 0-999
 ANTIWINDUP = '100000';                          % Maximum integral sum
 FREQUENCY = 20;                                 % Frequency for sampling(Hz)
 COM_PORT = 'COM6';
@@ -19,10 +19,14 @@ a = serial(COM_PORT, 'BaudRate', BAUDRATE);
 set(a, 'Terminator', 10);
 fopen(a);
 % Initialize vectors and matrixes for plotting--
-values = rand(FREQUENCY*PLOT_TIME,4);           % Matrix which will be plotted
+values = rand(FREQUENCY*PLOT_TIME,6);           % Matrix which will be plotted
 tempValues = zeros(FREQUENCY,3);                % Matrix holding 1 sec of values
 setpointvector = ones(FREQUENCY*PLOT_TIME,1).*SETDISTANCE;
+plusFive = setpointvector.*1.05;
+minusFive = setpointvector.*0.95;
 values(:,4) = setpointvector;                   % Insert a static setpoint vector
+values(:,5) = plusFive;                         % Vector 5 percent larger than SP
+values(:,6) = minusFive;                        % Vector 5 percent smaller than SP
 x = (1:FREQUENCY*PLOT_TIME)./FREQUENCY;         % x-vector for time vector
 plotGraph = plot(x,values);                     % Set up Plot
 pause(1)                                        % Let Matlab render
@@ -49,7 +53,7 @@ while ishandle(plotGraph)                       % While plotting window is activ
     values(1:FREQUENCY,1:3) = tempValues;       % Insert temp matrix to plot latest values
     plotGraph = plot(x,values);                 % Plot latest values
     grid on
-    legend('Distance [mm]', 'Error [mm]', 'Output (0-999)', 'Setpoint [mm]');
+    legend('Distance [mm]','Error [mm]','Output (0-999)','Setpoint [mm]','Setpoint + 5%','Setpoint - 5%');
     xlabel('Seconds');
     ylabel('Values');
     title('Ball-controller');
@@ -58,7 +62,7 @@ end
 % Final plot after closing the continous plotting
 fclose(a);
 plot(x,values);
-legend('Distance [mm]', 'Error [mm]', 'Output (0-999)', 'Setpoint [mm]');
+legend('Distance [mm]','Error [mm]','Output (0-999)','Setpoint [mm]','Setpoint + 5%','Setpoint - 5%');
 grid on
 xlabel('Seconds');
 ylabel('Values');

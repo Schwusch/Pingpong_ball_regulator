@@ -1,5 +1,5 @@
-src/uart_recieve_values.d src/uart_recieve_values.o: \
- ../src/uart_recieve_values.c ../src/asf.h \
+src/config_functions/adc_func.d src/config_functions/adc_func.o: \
+ ../src/config_functions/adc_func.c ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.9.3\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -152,8 +152,8 @@ src/uart_recieve_values.d src/uart_recieve_values.o: \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/sync.h \
- ../src/uart_recieve_values.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ ../src/config_functions/adc_func.h
 
 ../src/asf.h:
 
@@ -477,6 +477,4 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/sync.h:
-
-../src/uart_recieve_values.h:
+../src/config_functions/adc_func.h:

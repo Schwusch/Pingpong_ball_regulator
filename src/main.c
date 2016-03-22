@@ -3,13 +3,14 @@
  */
 #include <asf.h>
 
-#include "motorshield.h"
-#include "adc_func.h"
+#include "config_functions/adc_func.h"
+#include "config_functions/console_func.h"
+#include "config_functions/pwm_func.h"
+#include "tasks/task_com.h"
+#include "tasks/task_regulate.h"
 #include "sync.h"
-#include "pwm_func.h"
-#include "task_com.h"
-#include "task_regulate.h"
-#include "uart_recieve_values.h"
+#include "utilities.h"
+
 
 /* "Global" variables shared between tasks declared here */
 xSemaphoreHandle sync = 1;
@@ -31,8 +32,7 @@ int main (void)
 	sysclk_init();
 	board_init();
 	configure_console();
-	ioport_init();	
-	motorshield_init();	
+	ioport_init();		
 	adc_config();
 	pwm_config();
 	delay_init(sysclk_get_cpu_hz());

@@ -557,14 +557,10 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\" />
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\config_functions" />
+    <Folder Include="src\tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\adc_func.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\adc_func.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\ASF\common\utils\stdio\read.c">
       <SubType>compile</SubType>
     </Compile>
@@ -574,24 +570,48 @@
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\config_functions\adc_func.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config_functions\adc_func.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config_functions\console_func.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config_functions\console_func.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config_functions\pwm_func.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config_functions\pwm_func.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\tasks\task_com.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\tasks\task_com.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\tasks\task_regulate.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\tasks\task_regulate.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utilities.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utilities.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.h">
       <SubType>compile</SubType>
     </None>
     <None Include="src\config\conf_sio2host.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="src\fdacoefs.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_regulate.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\uart_recieve_values.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\uart_recieve_values.h">
-      <SubType>compile</SubType>
-    </Compile>
     <None Include="src\ASF\sam\drivers\usart\usart.h">
       <SubType>compile</SubType>
     </None>
@@ -646,28 +666,7 @@
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\motorshield.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\motorshield.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\pwm_func.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\pwm_func.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\sync.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_com.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_com.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_regulate.c">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam\drivers\pwm\pwm.h">
