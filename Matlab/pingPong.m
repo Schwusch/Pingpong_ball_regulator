@@ -6,7 +6,7 @@
 P = '100';                                      % Values with a factor of 1000
 I = '600';                                      % --||--
 D = '200';                                      % --||--
-SETDISTANCE = 200;                              % Setpoint in mm from sensor
+SETDISTANCE = 300;                              % Setpoint in mm from sensor
 OFFSET = '600';                                 % Offset 0-999
 ANTIWINDUP = '100000';                          % Maximum integral sum
 FREQUENCY = 20;                                 % Frequency for sampling(Hz)
