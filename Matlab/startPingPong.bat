@@ -1,2 +1,2 @@
 set currentPath=%~dp0
-matlab -nosplash -nodesktop -minimize -r cd('%currentPath%');pingPong;
+matlab -nodisplay -minimize -nosplash -nodesktop -r cd('%currentPath%');pingPong;
