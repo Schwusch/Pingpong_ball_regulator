@@ -7,8 +7,8 @@ Arduino Due regulating a pingpong ball on a ramp with a distance sensor and a fa
 
 **Matlab code**
 
-Matlab code related to this projekt is in the folder "Matlab"
+[Matlab code related to this projekt is in the folder "Matlab"](Matlab/pingPong.m)
 
 **C-code**
 
-C-code related to this project is located in the "src" folder
+[C-code related to this project is located in the "src" folder](src)
